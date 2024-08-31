@@ -1,0 +1,6 @@
+aiogram~=3.6.0
+pytoniq-core~=0.1.32
+pytonconnect~=0.3.1
+mysql-connector-python~=8.4.0
+pytonapi~=0.2.9
+tonsdk~=1.0.13
