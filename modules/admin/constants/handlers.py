@@ -1,9 +1,8 @@
-from aiogram import F
+from aiogram import F, Bot
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
-from core.config import bot
 from database import t_users, t_mining
 from modules.admin import AdminModule
 from states import AdminStates
@@ -26,7 +25,7 @@ async def h_constants(callback: CallbackQuery, state: FSMContext) -> None:
                    f"{md.bold('Start balance')} (start): {t_users.start}\n"
                    f"{md.bold('Referal reward')} (referal): {t_users.referal}\n"
                    f"{md.bold('Global booster')} (booster): {t_mining.booster}\n"
-                   f"{md.bold('Upgrades discount')} (discount): {t_mining.discount}\т"
+                   f"{md.bold('Upgrades discount')} (discount): {t_mining.discount}\n"
                    f"\n"
                    f"{md.monospaced('constant name = value')}")
         }
@@ -43,7 +42,7 @@ async def h_constants(callback: CallbackQuery, state: FSMContext) -> None:
 
 
 @AdminModule.router.message(StateFilter(AdminStates.constants))
-async def h_constants_template(message: Message, state: FSMContext) -> None:
+async def h_constants_template(message: Message, state: FSMContext, bot: Bot) -> None:
 
     template: list = message.text.split("=")
     name: str = template[0]

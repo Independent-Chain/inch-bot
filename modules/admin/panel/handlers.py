@@ -1,18 +1,19 @@
-from aiogram import F
+from aiogram import F, Bot
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 
-from core.config import bot
-from core.secrets import ADMINS
 from modules.admin import AdminModule
 from utils import Translator
+from config.config import Config, load_config
 
 
 @AdminModule.router.message(Command("admin"))
 async def h_admin(message: Message, state: FSMContext) -> None:
 
-    if message.from_user.id not in ADMINS.values():
+    config: Config = load_config()
+
+    if message.from_user.id not in config.secrets.admin_ids:
         strings: dict[str, dict] = {
             "failed": {
                 "ru": "Недостаточно прав для использования данной команды.",
@@ -61,7 +62,7 @@ async def h_admin(callback: CallbackQuery, state: FSMContext) -> None:
 
 
 @AdminModule.router.callback_query(F.data == "close_panel")
-async def h_admin(callback: CallbackQuery, state: FSMContext) -> None:
+async def h_admin(callback: CallbackQuery, state: FSMContext, bot: Bot) -> None:
 
     await state.clear()
     await callback.answer(show_alert=False)

@@ -1,12 +1,13 @@
 from pytonapi.schema.nft import NftItems
 from pytonapi import Tonapi
 
-from core.secrets import TON_API
+from config.config import Config, load_config
 from database import t_users, t_mining
 
 
 class TonSpace:
-    TON: Tonapi = Tonapi(api_key=TON_API)
+    config: Config = load_config()
+    TON: Tonapi = Tonapi(api_key=config.secrets.ton_api)
     address: str = "UQA0IvXBnVMRI9BqM8GK-KeMPam7QBhAyiPAdfJUQ-Zzx_rk"
     available: list[str] = ["BRONZE INCH", "SILVER INCH", "GOLD INCH", "BLACK INCH", "GECKOSHI INCH", "GHOSTEX INCH"]
 
@@ -44,6 +45,3 @@ class TonSpace:
         print(booster)
         t_mining.assign("booster", booster, "user_id", user_id)
         return round(booster, 2)
-
-
-

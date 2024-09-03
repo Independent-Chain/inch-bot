@@ -24,7 +24,7 @@ def format_time_en(hours: int) -> str:
 
 
 @MainModule.router.callback_query(F.data == "upgrades")
-async def h_upgrades(callback: CallbackQuery, state: FSMContext) -> None:
+async def h_upgrades(callback: CallbackQuery) -> None:
 
     user = t_users.user(callback.from_user.id)
     m_user = t_mining.user(callback.from_user.id)
@@ -146,5 +146,3 @@ async def h_upgrade_storage(callback: CallbackQuery, state: FSMContext) -> None:
         )
 
         await h_upgrades(callback, state)
-
-

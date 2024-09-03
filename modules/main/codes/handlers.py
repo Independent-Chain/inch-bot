@@ -1,11 +1,10 @@
 import datetime
 
-from aiogram import F
+from aiogram import F, Bot
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
-from core.config import bot
 from database import t_users, t_codes
 from modules.main import MainModule
 from states import CodesStates
@@ -98,7 +97,7 @@ async def h_codes(callback: CallbackQuery, state: FSMContext):
 
 
 @MainModule.router.message(StateFilter(CodesStates.code))
-async def h_code(message: Message, state: FSMContext) -> None:
+async def h_code(message: Message, state: FSMContext, bot: Bot) -> None:
 
     signature: str = message.text
     code = t_codes.check(signature)

@@ -1,9 +1,8 @@
-from aiogram import F
+from aiogram import F, Bot
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
-from core.config import bot
 from database import t_codes
 from modules.admin import AdminModule
 from states import AdminStates
@@ -33,7 +32,7 @@ async def h_generate(callback: CallbackQuery, state: FSMContext) -> None:
 
 
 @AdminModule.router.message(StateFilter(AdminStates.generate_codes))
-async def h_generate_template(message: Message, state: FSMContext) -> None:
+async def h_generate_template(message: Message, state: FSMContext, bot: Bot) -> None:
 
     template: list = message.text.split(":")
     activations: int = int(template[0])

@@ -1,5 +1,4 @@
 from aiogram import F
-from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
 from modules.main import MainModule
@@ -17,7 +16,7 @@ def wallet(language: str, address: str) -> str:
 
 
 @MainModule.router.callback_query(F.data == "support")
-async def h_support(callback: CallbackQuery, state: FSMContext):
+async def h_support(callback: CallbackQuery):
 
     strings: dict[str, dict] = {
         "support": {

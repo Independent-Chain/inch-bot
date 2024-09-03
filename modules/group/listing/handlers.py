@@ -1,5 +1,4 @@
 from aiogram.filters import Command
-from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 from modules.group import GroupModule
@@ -7,7 +6,7 @@ from utils import Markdown as md, TonSpace, Translator
 
 
 @GroupModule.router.message(Command("listing"))
-async def h_listing(message: Message, state: FSMContext) -> None:
+async def h_listing(message: Message) -> None:
 
     balance: float = await TonSpace.balance()
 

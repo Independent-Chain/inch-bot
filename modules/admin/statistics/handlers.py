@@ -1,5 +1,4 @@
 from aiogram import F
-from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
 from database.table import Admin
@@ -8,7 +7,7 @@ from utils import Markdown as md, Translator
 
 
 @AdminModule.router.callback_query(F.data == "statistics")
-async def h_statistics(callback: CallbackQuery, state: FSMContext) -> None:
+async def h_statistics(callback: CallbackQuery) -> None:
 
     strings: dict[str, dict] = {
         "statistics": {

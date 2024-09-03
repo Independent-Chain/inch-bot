@@ -1,5 +1,4 @@
 from aiogram import F
-from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
 from database import t_codes
@@ -8,7 +7,7 @@ from utils import Markdown as md
 
 
 @AdminModule.router.callback_query(F.data == "get_codes")
-async def h_get(callback: CallbackQuery, state: FSMContext) -> None:
+async def h_get(callback: CallbackQuery) -> None:
 
     await callback.answer(show_alert=False)
 

@@ -9,4 +9,3 @@ MainModule.connect("modules.main", "mining")
 MainModule.connect("modules.main", "upgrades")
 MainModule.connect("modules.main", "support")
 MainModule.connect("modules.main", "wallet")
-

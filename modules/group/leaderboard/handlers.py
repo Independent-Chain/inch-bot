@@ -1,6 +1,5 @@
 from aiogram import F
 from aiogram.filters import Command
-from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 from database import t_users
@@ -21,7 +20,7 @@ def format_text(user) -> str:
 
 
 @GroupModule.router.message(Command("leaderboard"))
-async def leaderboard_(message: Message, state: FSMContext) -> None:
+async def leaderboard_(message: Message) -> None:
 
     user = t_users.user(message.from_user.id)
     text: str = format_text(user)
