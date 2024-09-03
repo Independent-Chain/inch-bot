@@ -12,6 +12,7 @@ class DatabaseConfig:
 
 @dataclass
 class TgBot:
+    wallet_storage_path: str
     token: str
     admin_ids: list[int]
     ton_api: str
@@ -30,13 +31,15 @@ def load_config() -> Config:
 
     return Config(
         secrets=TgBot(
-            token=env('API_TOKEN'),
-            admin_ids=list(map(int, env.list('ADMIN_IDS')))
+            token=env('token'),
+            admin_ids=list(map(int, env.list('admin_ids'))),
+            ton_api='ton_api',
+            wallet_storage_path='wallet_storage_path',
         ),
         db=DatabaseConfig(
-            database=env('DATABASE'),
-            db_host=env('DB_HOST'),
-            db_user=env('DB_USER'),
-            db_password=env('DB_PASSWORD')
+            scheme=env('scheme'),
+            host=env('host'),
+            username=env('username'),
+            password=env('password'),
         )
     )

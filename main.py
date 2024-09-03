@@ -29,7 +29,7 @@ async def main() -> None:
 
     bot_task = asyncio.create_task(bot.delete_webhook(drop_pending_updates=True))
     dispatcher_task = asyncio.create_task(dispatcher.start_polling(bot))
-    check_storage_task = asyncio.create_task(StorageChecker.check_storage())
+    check_storage_task = asyncio.create_task(StorageChecker.check_storage(bot))
 
     dispatcher.include_routers(MainModule.router, GroupModule.router, AdminModule.router)
 

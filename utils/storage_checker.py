@@ -47,7 +47,7 @@ class StorageChecker:
                     pass
 
         await asyncio.sleep(60)
-        await cls.check_storage()
+        await cls.check_storage(bot)
 
     @classmethod
     def keyboard_builder(cls, language: str) -> InlineKeyboardMarkup:

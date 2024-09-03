@@ -25,7 +25,7 @@ async def h_constants(callback: CallbackQuery, state: FSMContext) -> None:
                    f"{md.bold('Start balance')} (start): {t_users.start}\n"
                    f"{md.bold('Referal reward')} (referal): {t_users.referal}\n"
                    f"{md.bold('Global booster')} (booster): {t_mining.booster}\n"
-                   f"{md.bold('Upgrades discount')} (discount): {t_mining.discount}\т"
+                   f"{md.bold('Upgrades discount')} (discount): {t_mining.discount}\n"
                    f"\n"
                    f"{md.monospaced('constant name = value')}")
         }

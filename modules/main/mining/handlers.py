@@ -55,7 +55,7 @@ def format_time(callback: CallbackQuery, time: float) -> str:
 
 
 @MainModule.router.callback_query(F.data == "mining")
-async def h_mining(callback: CallbackQuery, state: FSMContext) -> None:
+async def h_mining(callback: CallbackQuery) -> None:
 
     user_wallet: str = t_users.select(("wallet", ), "user_id", callback.from_user.id)
     if user_wallet == "NULL":

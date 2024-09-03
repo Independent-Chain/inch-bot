@@ -8,4 +8,5 @@ database/backup.sql
 modules/main/wallet/storage/*.json
 scheme.drawio
 
-#config
+# config
+config/.env

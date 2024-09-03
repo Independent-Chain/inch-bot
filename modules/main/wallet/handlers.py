@@ -1,13 +1,12 @@
 import asyncio
 
 from aiogram import F
-from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 from pytonconnect import TonConnect
 from pytonconnect.storage import FileStorage
 from tonsdk.utils import Address
 
-from core.secrets import WALLET_STORAGE_PATH
+from config.config import Config, load_config
 from database import t_users
 from modules.main import MainModule
 from utils import Markdown as md, Translator
@@ -46,7 +45,7 @@ async def connect(connector, user_id: int):
 
 
 @MainModule.router.callback_query(F.data == "wallet")
-async def h_wallet(callback: CallbackQuery, state: FSMContext) -> None:
+async def h_wallet(callback: CallbackQuery) -> None:
     address: str = t_users.select(("wallet",), "user_id", callback.from_user.id)
 
     strings: dict[str, dict] = {
@@ -83,7 +82,9 @@ async def h_wallet(callback: CallbackQuery, state: FSMContext) -> None:
 
 
 @MainModule.router.callback_query(F.data == "tonspace")
-async def h_wallet_tonspace(callback: CallbackQuery, state: FSMContext) -> None:
+async def h_wallet_tonspace(callback: CallbackQuery) -> None:
+    config: Config = load_config()
+
     strings: dict[str, dict] = {
         "tonspace": {
             "ru": "Для подключения кошелька TonSpace к вашему профилю воспользуйтесь кнопкой ниже.",
@@ -107,7 +108,7 @@ async def h_wallet_tonspace(callback: CallbackQuery, state: FSMContext) -> None:
 
     connector = TonConnect(
         manifest_url='https://raw.githubusercontent.com/diominvd/independent_chain_bot/main/modules/main/wallet/manifest.json',
-        storage=FileStorage(WALLET_STORAGE_PATH + f"storage/{callback.from_user.id}.json")
+        storage=FileStorage(config.secrets.wallet_storage_path + f"storage/{callback.from_user.id}.json")
     )
 
     connect_url: str = await tonspace(connector)
@@ -130,7 +131,9 @@ async def h_wallet_tonspace(callback: CallbackQuery, state: FSMContext) -> None:
 
 
 @MainModule.router.callback_query(F.data == "tonkeeper")
-async def h_wallet_tonkeeper(callback: CallbackQuery, state: FSMContext) -> None:
+async def h_wallet_tonkeeper(callback: CallbackQuery) -> None:
+    config: Config = load_config()
+
     strings: dict[str, dict] = {
         "tonspace": {
             "ru": "Для подключения кошелька Tonkeeper к вашему профилю воспользуйтесь кнопкой ниже.",
@@ -154,7 +157,7 @@ async def h_wallet_tonkeeper(callback: CallbackQuery, state: FSMContext) -> None
 
     connector = TonConnect(
         manifest_url='https://raw.githubusercontent.com/diominvd/independent_chain_bot/main/modules/main/wallet/manifest.json',
-        storage=FileStorage(WALLET_STORAGE_PATH + f"storage/{callback.from_user.id}.json")
+        storage=FileStorage(config.secrets.wallet_storage_path + f"storage/{callback.from_user.id}.json")
     )
 
     connect_url: str = await tonkeeper(connector)
@@ -177,7 +180,9 @@ async def h_wallet_tonkeeper(callback: CallbackQuery, state: FSMContext) -> None
 
 
 @MainModule.router.callback_query(F.data == "mytonwallet")
-async def h_wallet_mytonwallet(callback: CallbackQuery, state: FSMContext) -> None:
+async def h_wallet_mytonwallet(callback: CallbackQuery) -> None:
+    config: Config = load_config()
+
     strings: dict[str, dict] = {
         "mytonwallet": {
             "ru": "Для подключения кошелька MyTonWallet к вашему профилю воспользуйтесь кнопкой ниже.",
@@ -201,7 +206,7 @@ async def h_wallet_mytonwallet(callback: CallbackQuery, state: FSMContext) -> No
 
     connector = TonConnect(
         manifest_url='https://raw.githubusercontent.com/diominvd/independent_chain_bot/main/modules/main/wallet/manifest.json',
-        storage=FileStorage(WALLET_STORAGE_PATH + f"storage/{callback.from_user.id}.json")
+        storage=FileStorage(config.secrets.wallet_storage_path + f"storage/{callback.from_user.id}.json")
     )
 
     connect_url: str = await mytonwallet(connector)

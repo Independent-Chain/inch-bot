@@ -1,18 +1,17 @@
 import datetime
 
-from aiogram import F
+from aiogram import F, Bot
 from aiogram.enums import ChatType, ChatMemberStatus
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 
-from core.config import bot
 from database import t_users
 from modules.main import MainModule
 from utils import Markdown as md, Translator
 
 
-async def check_subscribe(user_id: int) -> bool:
+async def check_subscribe(user_id: int, bot) -> bool:
     status = await bot.get_chat_member(chat_id="@inch_ton", user_id=user_id)
     if status.status != ChatMemberStatus.LEFT:
         return True
@@ -37,7 +36,7 @@ def inviter(message: Message) -> int | None:
 
 
 @MainModule.router.message(F.chat.type == ChatType.PRIVATE, Command("start"))
-async def h_start(message: Message, state: FSMContext) -> None:
+async def h_start(message: Message, state: FSMContext, bot: Bot) -> None:
 
     strings: dict[str, dict] = {
         "greeting": {
@@ -98,7 +97,7 @@ async def h_start(message: Message, state: FSMContext) -> None:
             t_users.increase("referals", 1, "user_id", inviter_id)
             t_users.increase("balance", t_users.referal, "user_id", inviter_id)
 
-    if not await check_subscribe(message.from_user.id):
+    if not await check_subscribe(message.from_user.id, bot):
         await message.answer(
             text=Translator.text(message, strings, "subscribe"),
             reply_markup=MainModule.modules["start"].keyboard_subscribe(message)
@@ -111,7 +110,7 @@ async def h_start(message: Message, state: FSMContext) -> None:
 
 
 @MainModule.router.callback_query(F.data == "check_subscribe")
-async def h_subscribe(callback: CallbackQuery, state: FSMContext) -> None:
+async def h_subscribe(callback: CallbackQuery, bot: Bot) -> None:
 
     strings: dict[str, dict] = {
         "success": {
@@ -126,7 +125,7 @@ async def h_subscribe(callback: CallbackQuery, state: FSMContext) -> None:
         }
     }
 
-    if await check_subscribe(callback.from_user.id):
+    if await check_subscribe(callback.from_user.id, bot):
         await callback.message.edit_text(
             text=Translator.text(callback, strings, "success")
         )

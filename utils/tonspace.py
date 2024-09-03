@@ -45,6 +45,3 @@ class TonSpace:
         print(booster)
         t_mining.assign("booster", booster, "user_id", user_id)
         return round(booster, 2)
-
-
-
