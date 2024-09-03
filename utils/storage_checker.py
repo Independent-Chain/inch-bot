@@ -1,11 +1,11 @@
 import asyncio
 import datetime
 
+from aiogram import Bot
 from aiogram.exceptions import TelegramForbiddenError
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from core.config import bot
 from database import t_users, t_mining
 
 
@@ -21,7 +21,7 @@ class StorageChecker:
     storage: list[int] = []
 
     @classmethod
-    async def check_storage(cls):
+    async def check_storage(cls, bot: Bot):
         m_users: list = t_mining.select(())
         for u in m_users:
             user = t_users.user(userid=u[0])

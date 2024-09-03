@@ -1,9 +1,8 @@
-from aiogram import F
+from aiogram import F, Bot
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
-from core.config import bot
 from database import t_users
 from database.table import Admin
 from modules.admin import AdminModule
@@ -35,7 +34,7 @@ async def h_mailing(callback: CallbackQuery, state: FSMContext) -> None:
 
 
 @AdminModule.router.message(StateFilter(AdminStates.mailing))
-async def h_mailing_template(message: Message, state: FSMContext) -> None:
+async def h_mailing_template(message: Message, bot: Bot) -> None:
 
     strings: dict[str, dict] = {
         "notify": {

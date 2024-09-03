@@ -1,12 +1,14 @@
 from mysql.connector import connect
-from core.secrets import DATABASE
+from config.config import Config, load_config
 
 
 class Database:
-    host = DATABASE["host"]
-    username = DATABASE["username"]
-    password = DATABASE["password"]
-    scheme = DATABASE["scheme"]
+    config: Config = load_config()
+
+    host = config.db.host
+    username = config.db.username
+    password = config.db.password
+    scheme = config.db.scheme
 
     connection = connect(host=host, user=username, password=password, database=scheme)
     cursor = connection.cursor()
