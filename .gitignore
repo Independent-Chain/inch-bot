@@ -4,6 +4,4 @@
 *.pyc
 
 core/secrets.py
-database/backup.sql
-modules/main/wallet/storage/*.json
 scheme.drawio
