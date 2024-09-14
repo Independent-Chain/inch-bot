@@ -2,13 +2,6 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, C
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 
-def language(language_code: str) -> str:
-    if language_code not in ["ru", "en"]:
-        return "en"
-    else:
-        return language_code
-
-
 def keyboard(locale: str) -> InlineKeyboardMarkup:
     buttons: dict[str, list] = {
         "ru": [
@@ -23,6 +16,6 @@ def keyboard(locale: str) -> InlineKeyboardMarkup:
     }
     
     builder: InlineKeyboardBuilder = InlineKeyboardBuilder()
-    builder.row(buttons[language(locale)][0])
-    builder.row(buttons[language(locale)][1])
+    builder.row(buttons[locale][0])
+    builder.row(buttons[locale][1])
     return builder.as_markup()

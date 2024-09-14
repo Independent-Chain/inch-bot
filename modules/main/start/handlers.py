@@ -29,10 +29,10 @@ async def h_start(message: Message, state: FSMContext) -> None:
     }
 
     locale = message.from_user.language_code
-    url = "https://raw.githubusercontent.com/Independent-Chain/inch-bot/main/src/INCH.png"
+    photo_url = "https://raw.githubusercontent.com/Independent-Chain/inch-bot/main/src/INCH.png"
 
     await message.answer_photo(
-        photo = url,
+        photo = photo_url,
         caption = strings["greeting"][language(locale)],
-        reply_markup = MainModule.modules["start"].keyboard(locale)
+        reply_markup = MainModule.modules["start"].keyboard(language(locale))
     )
