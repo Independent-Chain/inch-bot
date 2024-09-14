@@ -6,7 +6,7 @@ def keyboard(locale: str) -> InlineKeyboardMarkup:
     buttons: dict[str, list] = {
         "ru": [
             InlineKeyboardButton(text="Открыть приложение", web_app = WebAppInfo(url="https://inch-app.ru")),
-            InlineKeyboardButton(text="Канал проекта", url="https://t.me/inch_ton")
+            InlineKeyboardButton(text="Канал проекта", url="https://t.me/inch_ton_cis")
 
         ],
         "en": [
