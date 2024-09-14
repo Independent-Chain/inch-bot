@@ -3,8 +3,5 @@
 **/__pycache__
 *.pyc
 
-database/backup.sql
-modules/main/wallet/storage/*.json
+core/secrets.py
 scheme.drawio
-
-config/.env
